@@ -1,0 +1,85 @@
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+import java.util.Scanner;
+
+public class Team_distribution {
+	public static void main (String[] args)
+	{
+	Scanner people = new Scanner( System.in );
+	Scanner names = new Scanner( System.in );
+	
+	System.out.println("Enter number of people");
+	int people_number = people.nextInt();
+	int probability = (int)(0.5 * people_number*(people_number-1));
+	String people_names[] = new String[people_number];
+	names(people_number,people_names,names);
+	
+	int matches = 2;
+	for(int i=0;matches>i;i++){
+	int randomnized[][] =values(probability);
+	
+	printer(randomnized,people_names,probability);
+	System.out.println();
+	}
+	}
+	
+	
+	public static void names(int people_number, String[] people_names,Scanner names) {
+		for(int i=0;people_number>i;i++) 
+		{
+		System.out.println("Enter person number " + Math.addExact(i,1) + "'s name");
+		people_names[i] = names.next();
+		System.out.println("name " + Math.addExact(i,1) + " = " + people_names[i]);
+		}
+		System.out.println();
+	}
+	
+	public static int[][] values(int probability){
+		int[][] values = new int[probability][2];
+		Random rand = new Random();
+		for(int i=0; probability>i;i++)
+			{
+				int x = 1;
+				while(x!=0){
+					int  player = rand.nextInt(probability/2);
+					int opponent = rand.nextInt(probability/2);
+					int played_before = 0;
+					int playing_against_urself = 0;
+					
+					for(int j=0;j<i+1;j++){
+						if(player==opponent)
+						{
+							playing_against_urself =1;
+						}
+						
+						if(player == values[j][0] && opponent == values[j][1] || player == values[j][1] && opponent == values[j][0])
+						{	
+							played_before = 1;
+						}
+					}
+					
+						if(played_before ==0 && playing_against_urself ==0)
+						{
+							x=0;
+							values[i][0] = player;
+							values[i][1] = opponent;
+						}
+				}
+			}
+		
+	return values;
+	}
+	
+	public static void printer(int[][] randomnized,String[] people_names,int probability){
+		for(int i =0; probability>i;i++)
+		{
+				int value_1 = randomnized[i][0];
+				int value_2 = randomnized[i][1];
+				
+				System.out.println("Battlenumber " + Math.addExact(i,1) + ", " + people_names[value_1] + " against " + people_names[value_2]);
+				
+			}
+
+	}
+}
